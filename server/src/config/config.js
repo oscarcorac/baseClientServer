@@ -1,5 +1,5 @@
 module.exports = {
-	port: 8082,
+	port: 8084,
 	dialect: process.env.DIALECT || 'sqlite',
 	host: process.env.HOST || 'localhost',
 	storage: './tabtracker.sqlite',

@@ -1,24 +1,22 @@
 const Joi = require('@hapi/joi')
 
 const responses = {
-	username: 'You must provide a valid username',
-	email: 'You must provide a valid email',
-	password: 'You must provide a valid password',
-	lastName: 'You must provide a valid last name',
-	firstName: 'You must provide a valid first name',
+	name: 'You must provide a valid name, this must not be more the 50 characters',
+	age: 'You must provide a valid age between 18 and 99 years',
+	country: 'You must provide a valid country',
+	state: 'You must provide a valid state',
+	city: 'You must provide a valid city',
 }
 
 module.exports = {
 	register (req, res, next) {
 		const errors = {};
 		const schema = Joi.object({
-			username: Joi.string().required(),
-			email: Joi.string().required().email(),
-			password: Joi.string().required().regex(
-				new RegExp('^[a-zA-Z0-9]{8,32}$')
-			),
-			lastName: Joi.string().required(),
-			firstName: Joi.string().required()
+			name: Joi.string().max(50).regex(/^[a-zA-Z\u00C0-\u024F .]+$/i).required(),
+			age: Joi.number().min(18).max(99).required(),
+			country: Joi.number().required(),
+			state: Joi.number().required(),
+			city: Joi.number().required()
 		})
 		
 		const { error } = schema.validate(req.body, { abortEarly: false})
